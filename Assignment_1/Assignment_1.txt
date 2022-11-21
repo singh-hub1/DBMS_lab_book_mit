@@ -1,0 +1,126 @@
+Create table: salesman
+
+salesman_id | name | city | commission
+-------------+------------+----------+------------
+5001 | James Hoog | New York | 0.15
+
+1. Write a SQL statement to display all the information of all salesmen.
+MariaDB [mit]> select * from salesman;
++------+------------+-----------+------------+
+| s_id | name       | city      | commission |
++------+------------+-----------+------------+
+| 5001 | vishal sin | london    |       0.15 |
+| 5002 | Aditi shar | paris     |       0.25 |
+| 5003 | jyoti shar | new york  |       0.23 |
+| 5004 | swati sing | hong kong |       0.27 |
+| 5005 | ginny sing | italy     |        0.3 |
++------+------------+-----------+------------+
+5 rows in set (0.001 sec)
+
+2. Write a SQL statement to display specific columns like name and
+commission for all the salesmen.
+MariaDB [mit]> select name,commission from salesman;
++------------+------------+
+| name       | commission |
++------------+------------+
+| vishal sin |       0.15 |
+| Aditi shar |       0.25 |
+| jyoti shar |       0.23 |
+| swati sing |       0.27 |
+| ginny sing |        0.3 |
++------------+------------+
+
+3.Write a SQL statement to display all salesman names living in paris.
+MariaDB [mit]> select name from salesman where city='paris';
++------------+
+| name       |
++------------+
+| Aditi shar |
++------------+
+
+4.Write a SQL statement to display all salesman names having commission
+more than 0.12 and the salesman lives in Paris.
+MariaDB [mit]> select name from salesman where commission>'0.12'and city='paris';
++------------+
+| name       |
++------------+
+| Aditi shar |
++------------+
+1 row in set (0.000 sec)
+
+5. Write a SQL statement to display all salesman names having commission
+more than 0.10.
+MariaDB [mit]> select name from salesman where commission >'0.10';
++------------+
+| name       |
++------------+
+| vishal sin |
+| Aditi shar |
+| jyoti shar |
+| swati sing |
+| ginny sing |
++------------+
+6. Write a SQL statement to display all salesman names having commission
+more than 0.12 or they are living in London.
+MariaDB [mit]> select name from salesman where commission >'0.12' or city='london';
++------------+
+| name       |
++------------+
+| vishal sin |
+| Aditi shar |
+| jyoti shar |
+| swati sing |
+| ginny sing |
++------------+
+7. Write a SQL statement to display all salesman names not living in London.
+MariaDB [mit]> select name from salesman where city not in('london');
++------------+
+| name       |
++------------+
+| Aditi shar |
+| jyoti shar |
+| swati sing |
+| ginny sing |
++------------+
+8. Write a SQL statement to display all salesman names having commission
+greater or equal to 0.12 and less than or equal to 0.14.
+MariaDB [mit]> select name from salesman where commission >='0.12' and commission <='0.20';
++------------+
+| name       |
++------------+
+| vishal sin |
++------------+
+9. Write a sql statement to display salesmen id in desc order having commisssion 
+ greater than 0.12.
+MariaDB [mit]> select * from salesman where commission >'0.12' order by s_id desc;
++------+------------+-----------+------------+
+| s_id | name       | city      | commission |
++------+------------+-----------+------------+
+| 5005 | ginny sing | italy     |        0.3 |
+| 5004 | swati sing | hong kong |       0.27 |
+| 5003 | jyoti shar | new york  |       0.23 |
+| 5002 | Aditi shar | paris     |       0.25 |
+| 5001 | vishal sin | london    |       0.15 |
++------+------------+-----------+------------+
+
+10. Update salesman by setting commission to 0.20 for salesman living in Paris.
+MariaDB [mit]> update salesman set commission=commission*0.20 where city='paris';
+Query OK, 1 row affected (0.151 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+11.Update salesman by increasing everyones commission by 30%
+
+12. Delete salesman where name= '___'
+MariaDB [mit]> delete from salesman where name='aditi shar';
+Query OK, 1 row affected (0.111 sec)
+
+13. Delete city column 
+MariaDB [mit]> alter table salesman drop column city;
+
+-----------------------------------------------------------------------------------
+1) Customer (custname, addr, city, pin, mobile)
+2) Account(accno, branchname, balance)
+3) Loan(loanno, branchname, amount)
+4) Branch(branchname,addr, asset)
+5) Depositor(custname,accno)
+6) Borrower(custname,loanno)

@@ -1,0 +1,968 @@
+Microsoft Windows [Version 10.0.22000.978]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\91937>mysql -uroot
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignment_4       |
+| information_schema |
+| mit                |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.237 sec)
+
+MariaDB [(none)]> use mit;
+Database changed
+MariaDB [mit]> show tables;
++---------------+
+| Tables_in_mit |
++---------------+
+| customer      |
+| staff         |
++---------------+
+2 rows in set (0.001 sec)
+
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+--------------+------------+
+| c_id | first_name | last_name | dob    | contact    | address      | state      |
++------+------------+-----------+--------+------------+--------------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune         | maharashat |
+| 1002 | jyoti      | singh     | 2-2-20 | 7875487580 | patna        | kothrud    |
+| 1003 | justin     | singh     | 2-2-20 | 7875488980 | prabhat_road | deccan     |
+| 1004 | aditi      | sharma    | 20-05- | 9905401800 | gurgaon      | deccan     |
++------+------------+-----------+--------+------------+--------------+------------+
+4 rows in set (0.279 sec)
+
+MariaDB [mit]> se;ect * from staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'se' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ect * from staff' at line 1
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour | weekly_salary |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |       2000.00 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |       5500.00 |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+2 rows in set (0.103 sec)
+
+MariaDB [mit]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignment_4       |
+| information_schema |
+| mit                |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [mit]> use assignment_4;
+Database changed
+MariaDB [assignment_4]> show tables;
++------------------------+
+| Tables_in_assignment_4 |
++------------------------+
+| plan                   |
++------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [assignment_4]> select * from paln;
+ERROR 1146 (42S02): Table 'assignment_4.paln' doesn't exist
+MariaDB [assignment_4]> select * from plan;
++------+--------+--------------+---------------+-------------+
+| p_id | p_name | monthly_fees | plan_duration | call_charge |
++------+--------+--------------+---------------+-------------+
+| 1001 | sms    |       499.00 | 0000-00-00    |          45 |
++------+--------+--------------+---------------+-------------+
+1 row in set (0.061 sec)
+
+MariaDB [assignment_4]> truncate plan;
+Query OK, 0 rows affected (0.593 sec)
+
+MariaDB [assignment_4]> select * from plan;
+Empty set (0.000 sec)
+
+MariaDB [assignment_4]> desc plan;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| p_id          | int(11)       | NO   | PRI | NULL    |       |
+| p_name        | varchar(10)   | YES  |     | NULL    |       |
+| monthly_fees  | decimal(10,2) | YES  |     | NULL    |       |
+| plan_duration | date          | YES  |     | NULL    |       |
+| call_charge   | int(11)       | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.140 sec)
+
+MariaDB [assignment_4]> drop table plan;
+Query OK, 0 rows affected (0.265 sec)
+
+MariaDB [assignment_4]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [assignment_4]> select * from plan;
+ERROR 1146 (42S02): Table 'assignment_4.plan' doesn't exist
+MariaDB [assignment_4]> create table plan(p_id int primary key,p_name varchar(20),monthly_fees decimal(10,2),p_duration int,call_charge decimal(5,2));
+Query OK, 0 rows affected (0.307 sec)
+
+MariaDB [assignment_4]> desc plan;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| p_id         | int(11)       | NO   | PRI | NULL    |       |
+| p_name       | varchar(20)   | YES  |     | NULL    |       |
+| monthly_fees | decimal(10,2) | YES  |     | NULL    |       |
+| p_duration   | int(11)       | YES  |     | NULL    |       |
+| call_charge  | decimal(5,2)  | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+5 rows in set (0.015 sec)
+
+MariaDB [assignment_4]> insert into plan values(1001,'sms',499,3,1.5);
+Query OK, 1 row affected (0.147 sec)
+
+MariaDB [assignment_4]> select * from plan;
++------+--------+--------------+------------+-------------+
+| p_id | p_name | monthly_fees | p_duration | call_charge |
++------+--------+--------------+------------+-------------+
+| 1001 | sms    |       499.00 |          3 |        1.50 |
++------+--------+--------------+------------+-------------+
+1 row in set (0.000 sec)
+
+MariaDB [assignment_4]> insert into plan values(1002,'talktime',599,4,2.5);
+Query OK, 1 row affected (0.076 sec)
+
+MariaDB [assignment_4]> insert into plan values(1003,'internet',999,6,3.5);
+Query OK, 1 row affected (0.052 sec)
+
+MariaDB [assignment_4]> select * from plan;
++------+----------+--------------+------------+-------------+
+| p_id | p_name   | monthly_fees | p_duration | call_charge |
++------+----------+--------------+------------+-------------+
+| 1001 | sms      |       499.00 |          3 |        1.50 |
+| 1002 | talktime |       599.00 |          4 |        2.50 |
+| 1003 | internet |       999.00 |          6 |        3.50 |
++------+----------+--------------+------------+-------------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> create table mobile(m_id int primary key,ph_nos bigint,brand_name varchar(10),joined date,canceled date,ph_color varchar(10),customer_id int,staff_id int,foreign key(p_id) references plan(p_id));
+ERROR 1072 (42000): Key column 'p_id' doesn't exist in table
+MariaDB [assignment_4]> create table mobile(m_id int primary key,p_id int,ph_nos bigint,brand_name varchar(10),joined date,canceled date,ph_color varchar(10),customer_id int,staff_id int,foreign key(p_id) references plan(p_id));
+Query OK, 0 rows affected (0.218 sec)
+
+MariaDB [assignment_4]> desc mobile;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| m_id        | int(11)     | NO   | PRI | NULL    |       |
+| p_id        | int(11)     | YES  | MUL | NULL    |       |
+| ph_nos      | bigint(20)  | YES  |     | NULL    |       |
+| brand_name  | varchar(10) | YES  |     | NULL    |       |
+| joined      | date        | YES  |     | NULL    |       |
+| canceled    | date        | YES  |     | NULL    |       |
+| ph_color    | varchar(10) | YES  |     | NULL    |       |
+| customer_id | int(11)     | YES  |     | NULL    |       |
+| staff_id    | int(11)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.044 sec)
+
+MariaDB [assignment_4]> insert into mobile values(501,1004,9905401800,'apple','30-02-2020','1-1-2021','blck',201,301);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`assignment_4`.`mobile`, CONSTRAINT `mobile_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `plan` (`p_id`))
+MariaDB [assignment_4]> insert into mobile values(501,1002,9905401800,'apple','30-02-2020','1-1-2021','blck',201,301);
+Query OK, 1 row affected, 2 warnings (0.062 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 0000-00-00 | 0000-00-00 | blck     |         201 |      301 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [assignment_4]> truncate mobile;
+Query OK, 0 rows affected (0.472 sec)
+
+MariaDB [assignment_4]> insert into mobile values(501,1002,9905401800,'apple',30-02-2020,1-1-2021,'blck',201,301);
+Query OK, 1 row affected, 2 warnings (0.098 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 0000-00-00 | 0000-00-00 | blck     |         201 |      301 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [assignment_4]> truncate mobile;
+Query OK, 0 rows affected (0.404 sec)
+
+MariaDB [assignment_4]> insert into mobile values(501,1004,9905401800,'apple','2019-02-02','2020-02-02','blck',201,301);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`assignment_4`.`mobile`, CONSTRAINT `mobile_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `plan` (`p_id`))
+MariaDB [assignment_4]> insert into mobile values(501,1002,9905401800,'apple','2019-02-02','2020-02-02','blck',201,301);
+Query OK, 1 row affected (0.049 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | blck     |         201 |      301 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [assignment_4]> update table mobile set ph_color='black' where ph_color='blck';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table mobile set ph_color='black' where ph_color='blck'' at line 1
+MariaDB [assignment_4]> update mobile set ph_color='black' where ph_color='blck';
+Query OK, 1 row affected (0.136 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [assignment_4]> insert into mobile values(502,1003,7875487500,'samsung','2012-03-01','2022-01-01','Yellow',202,302);
+Query OK, 1 row affected (0.070 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+2 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> insert into mobile values(503,1001,9892154441,'poco','2010-08-04','2015-05-04','red',203,303);
+Query OK, 1 row affected (0.073 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> select * from plan;
++------+----------+--------------+------------+-------------+
+| p_id | p_name   | monthly_fees | p_duration | call_charge |
++------+----------+--------------+------------+-------------+
+| 1001 | sms      |       499.00 |          3 |        1.50 |
+| 1002 | talktime |       599.00 |          4 |        2.50 |
+| 1003 | internet |       999.00 |          6 |        3.50 |
++------+----------+--------------+------------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select * from plan group by p_name;
++------+----------+--------------+------------+-------------+
+| p_id | p_name   | monthly_fees | p_duration | call_charge |
++------+----------+--------------+------------+-------------+
+| 1003 | internet |       999.00 |          6 |        3.50 |
+| 1001 | sms      |       499.00 |          3 |        1.50 |
+| 1002 | talktime |       599.00 |          4 |        2.50 |
++------+----------+--------------+------------+-------------+
+3 rows in set (0.054 sec)
+
+MariaDB [assignment_4]> select max(monthly_fees) from plan;
++-------------------+
+| max(monthly_fees) |
++-------------------+
+|            999.00 |
++-------------------+
+1 row in set (0.109 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> select count(*) from mobile group by brand_name;
++----------+
+| count(*) |
++----------+
+|        1 |
+|        1 |
+|        1 |
++----------+
+3 rows in set (0.020 sec)
+
+MariaDB [assignment_4]> select count(*),brand_name from mobile group by brand_name;
++----------+------------+
+| count(*) | brand_name |
++----------+------------+
+|        1 | apple      |
+|        1 | poco       |
+|        1 | samsung    |
++----------+------------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> select count(*),brand_name from mobile where brand_name='apple'  group by brand_name;
++----------+------------+
+| count(*) | brand_name |
++----------+------------+
+|        1 | apple      |
++----------+------------+
+1 row in set (0.037 sec)
+
+MariaDB [assignment_4]> select * from mobile order by joined;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select * from plan;
++------+----------+--------------+------------+-------------+
+| p_id | p_name   | monthly_fees | p_duration | call_charge |
++------+----------+--------------+------------+-------------+
+| 1001 | sms      |       499.00 |          3 |        1.50 |
+| 1002 | talktime |       599.00 |          4 |        2.50 |
+| 1003 | internet |       999.00 |          6 |        3.50 |
++------+----------+--------------+------------+-------------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select p_id,p_name,call_charge where call charge > '2.50';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'call charge > '2.50'' at line 1
+MariaDB [assignment_4]> select p_id,p_name,call_charge where call_charge > '2.50';
+ERROR 1054 (42S22): Unknown column 'p_id' in 'field list'
+MariaDB [assignment_4]> select p_id,p_name,call_charge from plan where call_charge > '2.50';
++------+----------+-------------+
+| p_id | p_name   | call_charge |
++------+----------+-------------+
+| 1003 | internet |        3.50 |
++------+----------+-------------+
+1 row in set (0.040 sec)
+
+MariaDB [assignment_4]> select avg(call_charge) from plan;
++------------------+
+| avg(call_charge) |
++------------------+
+|         2.500000 |
++------------------+
+1 row in set (0.000 sec)
+
+MariaDB [assignment_4]> select * from plan;
++------+----------+--------------+------------+-------------+
+| p_id | p_name   | monthly_fees | p_duration | call_charge |
++------+----------+--------------+------------+-------------+
+| 1001 | sms      |       499.00 |          3 |        1.50 |
+| 1002 | talktime |       599.00 |          4 |        2.50 |
+| 1003 | internet |       999.00 |          6 |        3.50 |
++------+----------+--------------+------------+-------------+
+3 rows in set (0.014 sec)
+
+MariaDB [assignment_4]> select * from plan where p_duration between 4 and 6;
++------+----------+--------------+------------+-------------+
+| p_id | p_name   | monthly_fees | p_duration | call_charge |
++------+----------+--------------+------------+-------------+
+| 1002 | talktime |       599.00 |          4 |        2.50 |
+| 1003 | internet |       999.00 |          6 |        3.50 |
++------+----------+--------------+------------+-------------+
+2 rows in set (0.066 sec)
+
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select extract (month from joined) as month;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from joined) as month' at line 1
+MariaDB [assignment_4]> select Extract (Month From joined) as month;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'From joined) as month' at line 1
+MariaDB [assignment_4]> select Extract (Month From joined) as month from mobile;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'From joined) as month from mobile' at line 1
+MariaDB [assignment_4]> select extract(month from joined) as month from mobile;
++-------+
+| month |
++-------+
+|     2 |
+|     3 |
+|     8 |
++-------+
+3 rows in set (0.065 sec)
+
+MariaDB [assignment_4]> select * from mobile where p_id in(select extract(month from joined) as month from mobile where month=08);
+ERROR 1054 (42S22): Unknown column 'month' in 'where clause'
+MariaDB [assignment_4]> select * from mobile where p_id in(select extract(month from joined) as month from mobile where joined=08);
+Empty set, 1 warning (0.208 sec)
+
+MariaDB [assignment_4]> select * from mobile where p_id in(select extract(month from joined) as month from mobile where joined=8);
+Empty set, 1 warning (0.001 sec)
+
+MariaDB [assignment_4]> select extract(month from joined) as month from mobile where joined = 8;
+Empty set, 1 warning (0.001 sec)
+
+MariaDB [assignment_4]> select extract(month from joined) as month from mobile where joined = 2;
+Empty set, 1 warning (0.001 sec)
+
+MariaDB [assignment_4]> select extract(month from joined) as month from mobile;
++-------+
+| month |
++-------+
+|     2 |
+|     3 |
+|     8 |
++-------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> select * extract(month from joined) as month from mobile;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'extract(month from joined) as month from mobile' at line 1
+MariaDB [assignment_4]> select extract(month from joined) as month from mobile;
++-------+
+| month |
++-------+
+|     2 |
+|     3 |
+|     8 |
++-------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select top(3) from mobile;
+ERROR 1305 (42000): FUNCTION assignment_4.top does not exist
+MariaDB [assignment_4]> select top(3) with ties from mobile;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'with ties from mobile' at line 1
+MariaDB [assignment_4]> select * from mobile;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select * from mobile order by count desc limit 3;
+ERROR 1054 (42S22): Unknown column 'count' in 'order clause'
+MariaDB [assignment_4]> select * from mobile order by p_id desc limit 3;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select * from mobile order by ph_color desc limit 3;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_4]> select top 2 * from mobile;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2 * from mobile' at line 1
+MariaDB [assignment_4]> select * from mobile limit 2;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+2 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select * from mobile  fetch first 2 rows only;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'fetch first 2 rows only' at line 1
+MariaDB [assignment_4]> select top 2 percent * from mobile;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2 percent * from mobile' at line 1
+MariaDB [assignment_4]> select top 3 * from mobile;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '3 * from mobile' at line 1
+MariaDB [assignment_4]> select * from mobile ;
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+| m_id | p_id | ph_nos     | brand_name | joined     | canceled   | ph_color | customer_id | staff_id |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+|  501 | 1002 | 9905401800 | apple      | 2019-02-02 | 2020-02-02 | black    |         201 |      301 |
+|  502 | 1003 | 7875487500 | samsung    | 2012-03-01 | 2022-01-01 | Yellow   |         202 |      302 |
+|  503 | 1001 | 9892154441 | poco       | 2010-08-04 | 2015-05-04 | red      |         203 |      303 |
++------+------+------------+------------+------------+------------+----------+-------------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select * from plan;
++------+----------+--------------+------------+-------------+
+| p_id | p_name   | monthly_fees | p_duration | call_charge |
++------+----------+--------------+------------+-------------+
+| 1001 | sms      |       499.00 |          3 |        1.50 |
+| 1002 | talktime |       599.00 |          4 |        2.50 |
+| 1003 | internet |       999.00 |          6 |        3.50 |
++------+----------+--------------+------------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> select count(*) from mobile,plan where mobile.p_id=plan.p_id;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.110 sec)
+
+MariaDB [assignment_4]> select count(*) as call_chage from mobile,plan where mobile.p_id=plan.p_id;
++------------+
+| call_chage |
++------------+
+|          3 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [assignment_4]> select count(*) as plan_sold  from mobile,plan where mobile.p_id=plan.p_id;
++-----------+
+| plan_sold |
++-----------+
+|         3 |
++-----------+
+1 row in set (0.000 sec)
+
+MariaDB [assignment_4]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignment_4       |
+| information_schema |
+| mit                |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.049 sec)
+
+MariaDB [assignment_4]> create database Assignment_5;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [assignment_4]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignment_4       |
+| assignment_5       |
+| information_schema |
+| mit                |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [assignment_4]> use assignment_5;
+Database changed
+MariaDB [assignment_5]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [assignment_5]> craete table salesman(s_id int primary key,s_name vatchar(20),city varchar(10),commission decimal(4,2));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'craete table salesman(s_id int primary key,s_name vatchar(20),city varchar(10...' at line 1
+MariaDB [assignment_5]> create table salesman(s_id int primary key,s_name vatchar(20),city varchar(10),commission decimal(4,2));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(20),city varchar(10),commission decimal(4,2))' at line 1
+MariaDB [assignment_5]> create table salesman(s_id int primary key,s_name varchar(20),city varchar(10),commission decimal(4,2));
+Query OK, 0 rows affected (0.267 sec)
+
+MariaDB [assignment_5]> desc salesman;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| s_id       | int(11)      | NO   | PRI | NULL    |       |
+| s_name     | varchar(20)  | YES  |     | NULL    |       |
+| city       | varchar(10)  | YES  |     | NULL    |       |
+| commission | decimal(4,2) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.089 sec)
+
+MariaDB [assignment_5]> insert into salesman values(1001,'vishal singh','pune',0.51);
+Query OK, 1 row affected (0.035 sec)
+
+MariaDB [assignment_5]> insert into salesman values(1002,'swati singh','delhi',0.21);
+Query OK, 1 row affected (0.066 sec)
+
+MariaDB [assignment_5]> insert into salesman values(1003,'jyoti singh','gurgaon',0.12);
+Query OK, 1 row affected (0.052 sec)
+
+MariaDB [assignment_5]> select * from salesman;
++------+--------------+---------+------------+
+| s_id | s_name       | city    | commission |
++------+--------------+---------+------------+
+| 1001 | vishal singh | pune    |       0.51 |
+| 1002 | swati singh  | delhi   |       0.21 |
+| 1003 | jyoti singh  | gurgaon |       0.12 |
++------+--------------+---------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_5]> create table customer( c_id int primary key,s_id int ,c_name varchar(20),c_city varchar(20),grade int,foreign key(s_id) references salesman(s_id) on delete cascade on update cascade);
+Query OK, 0 rows affected (0.213 sec)
+
+MariaDB [assignment_5]> desc custmer;
+ERROR 1146 (42S02): Table 'assignment_5.custmer' doesn't exist
+MariaDB [assignment_5]> desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| c_id   | int(11)     | NO   | PRI | NULL    |       |
+| s_id   | int(11)     | YES  | MUL | NULL    |       |
+| c_name | varchar(20) | YES  |     | NULL    |       |
+| c_city | varchar(20) | YES  |     | NULL    |       |
+| grade  | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.015 sec)
+
+MariaDB [assignment_5]> insert into customer values(2001,1001,'arya singh','pune',100);
+Query OK, 1 row affected (0.036 sec)
+
+MariaDB [assignment_5]> insert into customer values(2002,1002,'adhvik singh','kolkata',90);
+Query OK, 1 row affected (0.050 sec)
+
+MariaDB [assignment_5]> insert into customer values(2003,1003,'justin singh','patna',70);
+Query OK, 1 row affected (0.020 sec)
+
+MariaDB [assignment_5]> select * from customer;
++------+------+--------------+---------+-------+
+| c_id | s_id | c_name       | c_city  | grade |
++------+------+--------------+---------+-------+
+| 2001 | 1001 | arya singh   | pune    |   100 |
+| 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 2003 | 1003 | justin singh | patna   |    70 |
++------+------+--------------+---------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_5]> create table order(order_no int primary key,purchase_amt decimal(10,2),order_date date,c_id int,s_id,foreign key(c_id) references customer(c_id),foreign key(s_id) references salesman(s_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'order(order_no int primary key,purchase_amt decimal(10,2),order_date date,c_i...' at line 1
+MariaDB [assignment_5]> create table ord(order_no int primary key,purchase_amt decimal(10,2),order_date date,c_id int,s_id,foreign key(c_id) references customer(c_id),foreign key(s_id) references salesman(s_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key(c_id) references customer(c_id),foreign key(s_id) references sale...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,c_id int,s_id,foreign key(c_id) references customer(c_id),foreign key(s_id) references salesman(s_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key(c_id) references customer(c_id),foreign key(s_id) references sale...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,c_id int,s_id,foreign key(c_id) references customer(c_id),foreign key(s_id) references salesman(s_id));
+ERROR 2006 (HY000): MySQL server has gone away
+No connection. Trying to reconnect...
+Connection id:    9
+Current database: assignment_5
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key(c_id) references customer(c_id),foreign key(s_id) references sale...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,c_id int,s_id,foreign key(c_id) references customer(c_id),foreign key(s_id) references salesman(s_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key(c_id) references customer(c_id),foreign key(s_id) references sale...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(id),c_id int foreign key(c_id) references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(id),c_id int foreign key(c_id) references cus...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(id),c_id int foreign key(c_id) references customer(c_id));show tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(id),c_id int foreign key(c_id) references cus...' at line 1
++------------------------+
+| Tables_in_assignment_5 |
++------------------------+
+| customer               |
+| salesman               |
++------------------------+
+2 rows in set (0.089 sec)
+
+MariaDB [assignment_5]> desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| c_id   | int(11)     | NO   | PRI | NULL    |       |
+| s_id   | int(11)     | YES  | MUL | NULL    |       |
+| c_name | varchar(20) | YES  |     | NULL    |       |
+| c_city | varchar(20) | YES  |     | NULL    |       |
+| grade  | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.038 sec)
+
+MariaDB [assignment_5]> desc salesman;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| s_id       | int(11)      | NO   | PRI | NULL    |       |
+| s_name     | varchar(20)  | YES  |     | NULL    |       |
+| city       | varchar(10)  | YES  |     | NULL    |       |
+| commission | decimal(4,2) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.011 sec)
+
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(id),c_id int foreign key(c_id) references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(id),c_id int foreign key(c_id) references cus...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(id),c_id int foreign key(c_id) references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(id),c_id int foreign key(c_id) references cus...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(id),c_id int foreign key references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(id),c_id int foreign key references customer(...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(id),c_id int foreign key references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(id),c_id int foreign key references customer(...' at line 1
+MariaDB [assignment_5]>
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(id),c_id int foreign key references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(id),c_id int foreign key references customer(...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(s_id),c_id int foreign key references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(s_id),c_id int foreign key references custome...' at line 1
+MariaDB [assignment_5]> select * from customer;
++------+------+--------------+---------+-------+
+| c_id | s_id | c_name       | c_city  | grade |
++------+------+--------------+---------+-------+
+| 2001 | 1001 | arya singh   | pune    |   100 |
+| 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 2003 | 1003 | justin singh | patna   |    70 |
++------+------+--------------+---------+-------+
+3 rows in set (0.021 sec)
+
+MariaDB [assignment_5]> select * from salesman;
++------+--------------+---------+------------+
+| s_id | s_name       | city    | commission |
++------+--------------+---------+------------+
+| 1001 | vishal singh | pune    |       0.51 |
+| 1002 | swati singh  | delhi   |       0.21 |
+| 1003 | jyoti singh  | gurgaon |       0.12 |
++------+--------------+---------+------------+
+3 rows in set (0.052 sec)
+
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(s_id),c_id int foreign key references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(s_id),c_id int foreign key references custome...' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int foreign key references salesman(s_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key references salesman(s_id))' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int,c_id int, foreign key(s_id) references salesman(s_id) foreign key(c_id) references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key(c_id) references customer(c_id))' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int,c_id int, foreign key(s_id) references salesman(s_id) foreign key(c_id) references customer(c_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key(c_id) references customer(c_id))' at line 1
+MariaDB [assignment_5]> create table order_table(order_no int primary key,purchase_amt decimal(10,2),order_date date,s_id int,c_id int, foreign key(s_id) references salesman(s_id));
+Query OK, 0 rows affected (0.310 sec)
+
+MariaDB [assignment_5]> desc order_table;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| order_no     | int(11)       | NO   | PRI | NULL    |       |
+| purchase_amt | decimal(10,2) | YES  |     | NULL    |       |
+| order_date   | date          | YES  |     | NULL    |       |
+| s_id         | int(11)       | YES  | MUL | NULL    |       |
+| c_id         | int(11)       | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+5 rows in set (0.014 sec)
+
+MariaDB [assignment_5]> alter table order_table add foreign key (c_id) references customer (c_id);
+Query OK, 0 rows affected (0.869 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [assignment_5]> desc order_table;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| order_no     | int(11)       | NO   | PRI | NULL    |       |
+| purchase_amt | decimal(10,2) | YES  |     | NULL    |       |
+| order_date   | date          | YES  |     | NULL    |       |
+| s_id         | int(11)       | YES  | MUL | NULL    |       |
+| c_id         | int(11)       | YES  | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+5 rows in set (0.014 sec)
+
+MariaDB [assignment_5]> select * from customer;
++------+------+--------------+---------+-------+
+| c_id | s_id | c_name       | c_city  | grade |
++------+------+--------------+---------+-------+
+| 2001 | 1001 | arya singh   | pune    |   100 |
+| 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 2003 | 1003 | justin singh | patna   |    70 |
++------+------+--------------+---------+-------+
+3 rows in set (0.005 sec)
+
+MariaDB [assignment_5]> select * from salesman;
++------+--------------+---------+------------+
+| s_id | s_name       | city    | commission |
++------+--------------+---------+------------+
+| 1001 | vishal singh | pune    |       0.51 |
+| 1002 | swati singh  | delhi   |       0.21 |
+| 1003 | jyoti singh  | gurgaon |       0.12 |
++------+--------------+---------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_5]> select * from order_table;
+Empty set (0.003 sec)
+
+MariaDB [assignment_5]> desc order_table;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| order_no     | int(11)       | NO   | PRI | NULL    |       |
+| purchase_amt | decimal(10,2) | YES  |     | NULL    |       |
+| order_date   | date          | YES  |     | NULL    |       |
+| s_id         | int(11)       | YES  | MUL | NULL    |       |
+| c_id         | int(11)       | YES  | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+5 rows in set (0.022 sec)
+
+MariaDB [assignment_5]> insert into order_table(501,20000,'2022-02-02',1001,2001);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '501,20000,'2022-02-02',1001,2001)' at line 1
+MariaDB [assignment_5]> insert into order_table(501,20000,2022-02-02,1001,2001);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '501,20000,2022-02-02,1001,2001)' at line 1
+MariaDB [assignment_5]> insert into order_table values(501,20000,'2022-02-02',1001,2001);
+Query OK, 1 row affected (0.184 sec)
+
+MariaDB [assignment_5]> insert into order_table values(502,10000,'2020-01-01',1002,2002);
+Query OK, 1 row affected (0.051 sec)
+
+MariaDB [assignment_5]> insert into order_table values(503,80000,'2019-01-10',1003,2003);
+Query OK, 1 row affected (0.045 sec)
+
+MariaDB [assignment_5]> select * from order_table;
++----------+--------------+------------+------+------+
+| order_no | purchase_amt | order_date | s_id | c_id |
++----------+--------------+------------+------+------+
+|      501 |     20000.00 | 2022-02-02 | 1001 | 2001 |
+|      502 |     10000.00 | 2020-01-01 | 1002 | 2002 |
+|      503 |     80000.00 | 2019-01-10 | 1003 | 2003 |
++----------+--------------+------------+------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_5]> select * from customer;
++------+------+--------------+---------+-------+
+| c_id | s_id | c_name       | c_city  | grade |
++------+------+--------------+---------+-------+
+| 2001 | 1001 | arya singh   | pune    |   100 |
+| 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 2003 | 1003 | justin singh | patna   |    70 |
++------+------+--------------+---------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_5]> select * from salesman;
++------+--------------+---------+------------+
+| s_id | s_name       | city    | commission |
++------+--------------+---------+------------+
+| 1001 | vishal singh | pune    |       0.51 |
+| 1002 | swati singh  | delhi   |       0.21 |
+| 1003 | jyoti singh  | gurgaon |       0.12 |
++------+--------------+---------+------------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_5]> select s_name,c_name,city,c_city from customer,salesman where customer.c_id=salesman.s_id and salesman.city=customer.c_city;
+Empty set (0.056 sec)
+
+MariaDB [assignment_5]> select s_name,c_name,city,c_city from customer,salesman where customer.c_id=salesman.s_id or salesman.city=customer.c_city;
++--------------+------------+------+--------+
+| s_name       | c_name     | city | c_city |
++--------------+------------+------+--------+
+| vishal singh | arya singh | pune | pune   |
++--------------+------------+------+--------+
+1 row in set (0.001 sec)
+
+MariaDB [assignment_5]> select c_name,c_city,purchase_amt,order_no from order_table,customer where order_table.c_id=customer.c_id and purchase_amt between 10000 and 20000;
++--------------+---------+--------------+----------+
+| c_name       | c_city  | purchase_amt | order_no |
++--------------+---------+--------------+----------+
+| arya singh   | pune    |     20000.00 |      501 |
+| adhvik singh | kolkata |     10000.00 |      502 |
++--------------+---------+--------------+----------+
+2 rows in set (0.019 sec)
+
+MariaDB [assignment_5]> select * from customer;
++------+------+--------------+---------+-------+
+| c_id | s_id | c_name       | c_city  | grade |
++------+------+--------------+---------+-------+
+| 2001 | 1001 | arya singh   | pune    |   100 |
+| 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 2003 | 1003 | justin singh | patna   |    70 |
++------+------+--------------+---------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_5]> select * from salesman;
++------+--------------+---------+------------+
+| s_id | s_name       | city    | commission |
++------+--------------+---------+------------+
+| 1001 | vishal singh | pune    |       0.51 |
+| 1002 | swati singh  | delhi   |       0.21 |
+| 1003 | jyoti singh  | gurgaon |       0.12 |
++------+--------------+---------+------------+
+3 rows in set (0.000 sec)
+
+MariaDB [assignment_5]> select c_name,c_city,city,commission from customer,salesman where customer.s_id=salesman.s_id;
++--------------+---------+---------+------------+
+| c_name       | c_city  | city    | commission |
++--------------+---------+---------+------------+
+| arya singh   | pune    | pune    |       0.51 |
+| adhvik singh | kolkata | delhi   |       0.21 |
+| justin singh | patna   | gurgaon |       0.12 |
++--------------+---------+---------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [assignment_5]> select c_name,c_city,grade,city from customer,salesman order by c_id;
++--------------+---------+-------+---------+
+| c_name       | c_city  | grade | city    |
++--------------+---------+-------+---------+
+| arya singh   | pune    |   100 | delhi   |
+| arya singh   | pune    |   100 | pune    |
+| arya singh   | pune    |   100 | gurgaon |
+| adhvik singh | kolkata |    90 | delhi   |
+| adhvik singh | kolkata |    90 | pune    |
+| adhvik singh | kolkata |    90 | gurgaon |
+| justin singh | patna   |    70 | delhi   |
+| justin singh | patna   |    70 | pune    |
+| justin singh | patna   |    70 | gurgaon |
++--------------+---------+-------+---------+
+9 rows in set (0.001 sec)
+
+MariaDB [assignment_5]> select c_id,c_name,c_city,grade,city from customer,salesman order by c_id;
++------+--------------+---------+-------+---------+
+| c_id | c_name       | c_city  | grade | city    |
++------+--------------+---------+-------+---------+
+| 2001 | arya singh   | pune    |   100 | delhi   |
+| 2001 | arya singh   | pune    |   100 | pune    |
+| 2001 | arya singh   | pune    |   100 | gurgaon |
+| 2002 | adhvik singh | kolkata |    90 | delhi   |
+| 2002 | adhvik singh | kolkata |    90 | pune    |
+| 2002 | adhvik singh | kolkata |    90 | gurgaon |
+| 2003 | justin singh | patna   |    70 | delhi   |
+| 2003 | justin singh | patna   |    70 | pune    |
+| 2003 | justin singh | patna   |    70 | gurgaon |
++------+--------------+---------+-------+---------+
+9 rows in set (0.000 sec)
+
+MariaDB [assignment_5]> select * from salesman cross join customer;
++------+--------------+---------+------------+------+------+--------------+---------+-------+
+| s_id | s_name       | city    | commission | c_id | s_id | c_name       | c_city  | grade |
++------+--------------+---------+------------+------+------+--------------+---------+-------+
+| 1001 | vishal singh | pune    |       0.51 | 2001 | 1001 | arya singh   | pune    |   100 |
+| 1002 | swati singh  | delhi   |       0.21 | 2001 | 1001 | arya singh   | pune    |   100 |
+| 1003 | jyoti singh  | gurgaon |       0.12 | 2001 | 1001 | arya singh   | pune    |   100 |
+| 1001 | vishal singh | pune    |       0.51 | 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 1002 | swati singh  | delhi   |       0.21 | 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 1003 | jyoti singh  | gurgaon |       0.12 | 2002 | 1002 | adhvik singh | kolkata |    90 |
+| 1001 | vishal singh | pune    |       0.51 | 2003 | 1003 | justin singh | patna   |    70 |
+| 1002 | swati singh  | delhi   |       0.21 | 2003 | 1003 | justin singh | patna   |    70 |
+| 1003 | jyoti singh  | gurgaon |       0.12 | 2003 | 1003 | justin singh | patna   |    70 |
++------+--------------+---------+------------+------+------+--------------+---------+-------+
+9 rows in set (0.060 sec)
+
+MariaDB [assignment_5]>

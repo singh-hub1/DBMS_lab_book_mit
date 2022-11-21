@@ -1,0 +1,472 @@
+Microsoft Windows [Version 10.0.22000.978]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\91937>mysl -uroot
+'mysl' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\91937>mysql -uroot
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+5 rows in set (0.282 sec)
+
+MariaDB [(none)]> create database Mit
+    -> ;
+Query OK, 1 row affected (0.080 sec)
+
+MariaDB [(none)]> use mit;
+Database changed
+MariaDB [mit]> create table customer(c_id int primary key,first_name varchar(20),last_name varchar(20),dob varchar(6),contact bigint,address varchar(20),state varchar(10));
+Query OK, 0 rows affected (0.371 sec)
+
+MariaDB [mit]> desc csutomer;
+ERROR 1146 (42S02): Table 'mit.csutomer' doesn't exist
+MariaDB [mit]> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| c_id       | int(11)     | NO   | PRI | NULL    |       |
+| first_name | varchar(20) | YES  |     | NULL    |       |
+| last_name  | varchar(20) | YES  |     | NULL    |       |
+| dob        | varchar(6)  | YES  |     | NULL    |       |
+| contact    | bigint(20)  | YES  |     | NULL    |       |
+| address    | varchar(20) | YES  |     | NULL    |       |
+| state      | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.122 sec)
+
+MariaDB [mit]> insert into customer values(1001,'vishal','singh','2-2-2001','pune','maharashatra');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [mit]> insert into customer values(1001,'vishal','singh','2-2-2001',7875487500,'pune','maharashatra');
+Query OK, 1 row affected, 2 warnings (0.083 sec)
+
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+---------+------------+
+| c_id | first_name | last_name | dob    | contact    | address | state      |
++------+------------+-----------+--------+------------+---------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune    | maharashat |
++------+------------+-----------+--------+------------+---------+------------+
+1 row in set (0.118 sec)
+
+MariaDB [mit]> insert into customer values(1002,'jyoti','singh','2-2-2002',7875487580,'patna','kothrud');
+Query OK, 1 row affected, 1 warning (0.086 sec)
+
+MariaDB [mit]> insert into customer values(1003,'justin','singh','2-2-2007',7875488980,'prabhat_road','deccan');
+Query OK, 1 row affected, 1 warning (0.098 sec)
+
+MariaDB [mit]> select * from csutomer
+    -> select * from csutomer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select * from csutomer' at line 2
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+--------------+------------+
+| c_id | first_name | last_name | dob    | contact    | address      | state      |
++------+------------+-----------+--------+------------+--------------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune         | maharashat |
+| 1002 | jyoti      | singh     | 2-2-20 | 7875487580 | patna        | kothrud    |
+| 1003 | justin     | singh     | 2-2-20 | 7875488980 | prabhat_road | deccan     |
++------+------------+-----------+--------+------------+--------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> create table staff(s_id int primary key,f_name varchar(20),l_name varchar(20),conatact bigint,dob varchar(6),joined int not null,resigned char(3),rate_per_hour int );
+Query OK, 0 rows affected (0.355 sec)
+
+MariaDB [mit]> desc staff;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| s_id          | int(11)     | NO   | PRI | NULL    |       |
+| f_name        | varchar(20) | YES  |     | NULL    |       |
+| l_name        | varchar(20) | YES  |     | NULL    |       |
+| conatact      | bigint(20)  | YES  |     | NULL    |       |
+| dob           | varchar(6)  | YES  |     | NULL    |       |
+| joined        | int(11)     | NO   |     | NULL    |       |
+| resigned      | char(3)     | YES  |     | NULL    |       |
+| rate_per_hour | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+8 rows in set (0.113 sec)
+
+MariaDB [mit]> insert into staff values(100,'vishal','singh',880456781,'6-8-2001','14-8-2014','28-6-2022',14);
+Query OK, 1 row affected, 3 warnings (0.045 sec)
+
+MariaDB [mit]> selectted * from staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'selectted * from staff' at line 1
+MariaDB [mit]> selected * from staff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'selected * from staff' at line 1
+MariaDB [mit]> select * from staff;
++------+--------+--------+-----------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact  | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+-----------+--------+--------+----------+---------------+
+|  100 | vishal | singh  | 880456781 | 6-8-20 |     14 | 28-      |            14 |
++------+--------+--------+-----------+--------+--------+----------+---------------+
+1 row in set (0.002 sec)
+
+MariaDB [mit]> insert into staff values(200,'arya','singh',780456781,'6-8-2002','14-8-2016','28-7-2022',16);
+Query OK, 1 row affected, 3 warnings (0.114 sec)
+
+MariaDB [mit]> insert into staff values(300,'swati','singh',780416081,'16-8-2001','14-2-2013','18-4-2022',18);
+Query OK, 1 row affected, 3 warnings (0.043 sec)
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+-----------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact  | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+-----------+--------+--------+----------+---------------+
+|  100 | vishal | singh  | 880456781 | 6-8-20 |     14 | 28-      |            14 |
+|  200 | arya   | singh  | 780456781 | 6-8-20 |     14 | 28-      |            16 |
+|  300 | swati  | singh  | 780416081 | 16-8-2 |     14 | 18-      |            18 |
++------+--------+--------+-----------+--------+--------+----------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> cls
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'cls' at line 1
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+--------------+------------+
+| c_id | first_name | last_name | dob    | contact    | address      | state      |
++------+------------+-----------+--------+------------+--------------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune         | maharashat |
+| 1002 | jyoti      | singh     | 2-2-20 | 7875487580 | patna        | kothrud    |
+| 1003 | justin     | singh     | 2-2-20 | 7875488980 | prabhat_road | deccan     |
++------+------------+-----------+--------+------------+--------------+------------+
+3 rows in set (0.000 sec)
+
+MariaDB [mit]> select firsst_name,contact,state from customer where state='maharashat';
+ERROR 1054 (42S22): Unknown column 'firsst_name' in 'field list'
+MariaDB [mit]> select first_name,contact,state from customer where state='maharashat';
++------------+------------+------------+
+| first_name | contact    | state      |
++------------+------------+------------+
+| vishal     | 7875487500 | maharashat |
++------------+------------+------------+
+1 row in set (0.020 sec)
+
+MariaDB [mit]> select * from staff ;
++------+--------+--------+-----------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact  | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+-----------+--------+--------+----------+---------------+
+|  100 | vishal | singh  | 880456781 | 6-8-20 |     14 | 28-      |            14 |
+|  200 | arya   | singh  | 780456781 | 6-8-20 |     14 | 28-      |            16 |
+|  300 | swati  | singh  | 780416081 | 16-8-2 |     14 | 18-      |            18 |
++------+--------+--------+-----------+--------+--------+----------+---------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> desc staff;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| s_id          | int(11)     | NO   | PRI | NULL    |       |
+| f_name        | varchar(20) | YES  |     | NULL    |       |
+| l_name        | varchar(20) | YES  |     | NULL    |       |
+| conatact      | bigint(20)  | YES  |     | NULL    |       |
+| dob           | varchar(6)  | YES  |     | NULL    |       |
+| joined        | int(11)     | NO   |     | NULL    |       |
+| resigned      | char(3)     | YES  |     | NULL    |       |
+| rate_per_hour | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+8 rows in set (0.037 sec)
+
+MariaDB [mit]> truncate staff;
+Query OK, 0 rows affected (0.466 sec)
+
+MariaDB [mit]> select * from staff;
+Empty set (0.004 sec)
+
+MariaDB [mit]> insert into staff values(100,'jasu','singh',7875487500,'2-2-2001',14-2-2019,'yes',14);
+Query OK, 1 row affected, 1 warning (0.141 sec)
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+1 row in set (0.001 sec)
+
+MariaDB [mit]> insert into staff values(200,'swati','singh',7875487508,'2-2-2002',14-2-2020,'no',16);
+Query OK, 1 row affected, 1 warning (0.141 sec)
+
+MariaDB [mit]> insert into staff values(300,'ginny','singh',7875487578,'2-2-2000',14-2-2022,'yes',18);
+Query OK, 1 row affected, 1 warning (0.105 sec)
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
+|  200 | swati  | singh  | 7875487508 | 2-2-20 |  -2008 | no       |            16 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+3 rows in set (0.000 sec)
+
+MariaDB [mit]> select * from staff where joined<('2000');
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
+|  200 | swati  | singh  | 7875487508 | 2-2-20 |  -2008 | no       |            16 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+3 rows in set (0.082 sec)
+
+MariaDB [mit]> select * from staff where joined > ('2000');
+Empty set (0.001 sec)
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
+|  200 | swati  | singh  | 7875487508 | 2-2-20 |  -2008 | no       |            16 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+3 rows in set (0.000 sec)
+
+MariaDB [mit]> select * from staff where resigned='yes';
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+2 rows in set (0.001 sec)
+
+MariaDB [mit]> selecct * from customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'selecct * from customer' at line 1
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+--------------+------------+
+| c_id | first_name | last_name | dob    | contact    | address      | state      |
++------+------------+-----------+--------+------------+--------------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune         | maharashat |
+| 1002 | jyoti      | singh     | 2-2-20 | 7875487580 | patna        | kothrud    |
+| 1003 | justin     | singh     | 2-2-20 | 7875488980 | prabhat_road | deccan     |
++------+------------+-----------+--------+------------+--------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
+|  200 | swati  | singh  | 7875487508 | 2-2-20 |  -2008 | no       |            16 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+3 rows in set (0.000 sec)
+
+MariaDB [mit]> select * from satff where rate_per_hour>15;
+ERROR 1146 (42S02): Table 'mit.satff' doesn't exist
+MariaDB [mit]> select * from staff where rate_per_hour>15;
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  200 | swati  | singh  | 7875487508 | 2-2-20 |  -2008 | no       |            16 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+2 rows in set (0.038 sec)
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
+|  200 | swati  | singh  | 7875487508 | 2-2-20 |  -2008 | no       |            16 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+3 rows in set (0.004 sec)
+
+MariaDB [mit]> delete from satff where resigned='no';
+ERROR 1146 (42S02): Table 'mit.satff' doesn't exist
+MariaDB [mit]> delete from staff where resigned='no';
+Query OK, 1 row affected (0.063 sec)
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour |
++------+--------+--------+------------+--------+--------+----------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |
++------+--------+--------+------------+--------+--------+----------+---------------+
+2 rows in set (0.000 sec)
+
+MariaDB [mit]> alter table staff add weekly_salary decimal(10,2);
+Query OK, 0 rows affected (0.153 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour | weekly_salary |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |          NULL |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |          NULL |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+2 rows in set (0.001 sec)
+
+MariaDB [mit]> update staff set weekly_salary =2000 where s_id=100;
+Query OK, 1 row affected (0.184 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mit]> update staff set weekly_salary =5000 where s_id=200;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour | weekly_salary |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |       2000.00 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |          NULL |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+2 rows in set (0.000 sec)
+
+MariaDB [mit]> update staff set weekly_salary =5000 where s_id=300;
+Query OK, 1 row affected (0.062 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour | weekly_salary |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |       2000.00 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |       5000.00 |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+2 rows in set (0.001 sec)
+
+MariaDB [mit]> update staff set weekly_salary=weekly_salary+(wekly_salary*0.10) where joined < '2007' and rate_per_hour>15;
+ERROR 1054 (42S22): Unknown column 'wekly_salary' in 'field list'
+MariaDB [mit]> update staff set weekly_salary=weekly_salary+(weekly_salary*0.10) where joined < '2007' and rate_per_hour>15;
+Query OK, 1 row affected (0.095 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mit]> select * from staff;
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+| s_id | f_name | l_name | conatact   | dob    | joined | resigned | rate_per_hour | weekly_salary |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+|  100 | jasu   | singh  | 7875487500 | 2-2-20 |  -2007 | yes      |            14 |       2000.00 |
+|  300 | ginny  | singh  | 7875487578 | 2-2-20 |  -2010 | yes      |            18 |       5500.00 |
++------+--------+--------+------------+--------+--------+----------+---------------+---------------+
+2 rows in set (0.000 sec)
+
+MariaDB [mit]> select avg(rate_per_hour) from staff;
++--------------------+
+| avg(rate_per_hour) |
++--------------------+
+|            16.0000 |
++--------------------+
+1 row in set (0.033 sec)
+
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+--------------+------------+
+| c_id | first_name | last_name | dob    | contact    | address      | state      |
++------+------------+-----------+--------+------------+--------------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune         | maharashat |
+| 1002 | jyoti      | singh     | 2-2-20 | 7875487580 | patna        | kothrud    |
+| 1003 | justin     | singh     | 2-2-20 | 7875488980 | prabhat_road | deccan     |
++------+------------+-----------+--------+------------+--------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> insert into customer values(1004,'aditi','sharma','20-05-1999',9905401800,'gurgaon','deccan');
+Query OK, 1 row affected, 1 warning (0.071 sec)
+
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+--------------+------------+
+| c_id | first_name | last_name | dob    | contact    | address      | state      |
++------+------------+-----------+--------+------------+--------------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune         | maharashat |
+| 1002 | jyoti      | singh     | 2-2-20 | 7875487580 | patna        | kothrud    |
+| 1003 | justin     | singh     | 2-2-20 | 7875488980 | prabhat_road | deccan     |
+| 1004 | aditi      | sharma    | 20-05- | 9905401800 | gurgaon      | deccan     |
++------+------------+-----------+--------+------------+--------------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [mit]> select count(*) from customer;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [mit]> select count(*) from customer where state;
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set, 4 warnings (0.041 sec)
+
+MariaDB [mit]> select count(*) from customer group by state;
++----------+
+| count(*) |
++----------+
+|        2 |
+|        1 |
+|        1 |
++----------+
+3 rows in set (0.150 sec)
+
+MariaDB [mit]> select c_id,count(*) from customer group by state;
++------+----------+
+| c_id | count(*) |
++------+----------+
+| 1003 |        2 |
+| 1002 |        1 |
+| 1001 |        1 |
++------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> select count(*) from customer group by state;
++----------+
+| count(*) |
++----------+
+|        2 |
+|        1 |
+|        1 |
++----------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> select count(state) from customer group by state;
++--------------+
+| count(state) |
++--------------+
+|            2 |
+|            1 |
+|            1 |
++--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> select count(state),state from customer group by state;
++--------------+------------+
+| count(state) | state      |
++--------------+------------+
+|            2 | deccan     |
+|            1 | kothrud    |
+|            1 | maharashat |
++--------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [mit]> select * from customer;
++------+------------+-----------+--------+------------+--------------+------------+
+| c_id | first_name | last_name | dob    | contact    | address      | state      |
++------+------------+-----------+--------+------------+--------------+------------+
+| 1001 | vishal     | singh     | 2-2-20 | 7875487500 | pune         | maharashat |
+| 1002 | jyoti      | singh     | 2-2-20 | 7875487580 | patna        | kothrud    |
+| 1003 | justin     | singh     | 2-2-20 | 7875488980 | prabhat_road | deccan     |
+| 1004 | aditi      | sharma    | 20-05- | 9905401800 | gurgaon      | deccan     |
++------+------------+-----------+--------+------------+--------------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [mit]>
